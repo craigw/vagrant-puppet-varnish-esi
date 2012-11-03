@@ -1,7 +1,8 @@
 <?php
-$expires = 120;
+$expires = 45;
 header("Pragma: public");
 header("Cache-Control: max-age=".$expires);
+$time = mktime();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,11 +15,11 @@ header("Cache-Control: max-age=".$expires);
     <script type="text/javascript">setTimeout(function() { document.location.reload(true) }, 1000);</script>
   </head>
   <body>
-    <p>I'm the container. I was fetched at <?php echo date('Y-m-d\TH:i:s\Z', mktime()) . substr((string)microtime(), 1, 6) ?> (expires = 120s)</p>
-    <esi:include src="/part1.php"/>
-    <esi:include src="/part2.php"/>
-    <esi:include src="/part3.php"/>
-    <esi:include src="/part4.php"/>
-    <esi:include src="/part5.php"/>
+    <p>I'm the container. I was fetched at <?php echo date('Y-m-d\TH:i:s\Z', mktime()) . substr((string)microtime(), 1, 6) ?> (expires = 45s, generation = <?php echo $time ?>)</p>
+    <esi:include src="/part1.php?generation=<?php echo $time ?>"/>
+    <esi:include src="/part2.php?generation=<?php echo $time ?>"/>
+    <esi:include src="/part3.php?generation=<?php echo $time ?>"/>
+    <esi:include src="/part4.php?generation=<?php echo $time ?>"/>
+    <esi:include src="/part5.php?generation=<?php echo $time ?>"/>
   </body>
 </html>
